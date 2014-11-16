@@ -13,7 +13,7 @@
 
 CModel rectoria;
 CModel facultadD;
-
+CModel biblioteca;
 
 //NEW//////////////////NEW//////////////////NEW//////////////////NEW////////////////
 CCamera objCamera;
@@ -97,6 +97,11 @@ void InitGL()     // Inicializamos parametros
 	rectoria.GLIniTextures();
 	rectoria.ReleaseTextureImages();
 
+	biblioteca._3dsLoad("biblioteca/biblioteca.3ds");
+	biblioteca.LoadTextureImages();
+	biblioteca.GLIniTextures();
+	biblioteca.ReleaseTextureImages();
+
 	facultadD._3dsLoad("derecho3DS/derecho.3ds");
 	facultadD.LoadTextureImages();
 	facultadD.GLIniTextures();
@@ -146,6 +151,14 @@ void display(void)   // Creamos la funcion donde se dibuja
 				glTranslatef(-230, 0.0,50.0);
 					glScalef(0.009, 0.009, 0.009);
 					rectoria.GLrender(NULL, _SHADED, 1);
+				glEnable(GL_LIGHTING);
+			glPopMatrix();
+
+			glPushMatrix(); //Biblioteca
+				glDisable(GL_LIGHTING);
+					glTranslatef(-230.0, 0.0, 50.0);
+					glScalef(0.4, 0.4, 0.4);
+					biblioteca.GLrender(NULL, _SHADED, 1);
 				glEnable(GL_LIGHTING);
 			glPopMatrix();
 
