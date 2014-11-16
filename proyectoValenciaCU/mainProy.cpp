@@ -17,6 +17,7 @@ CModel biblioteca;
 CModel islas;
 
 CFiguras pasto;
+CFiguras isla;
 
 CTexture texturaPasto;
 //NEW//////////////////NEW//////////////////NEW//////////////////NEW////////////////
@@ -177,12 +178,55 @@ void display(void)   // Creamos la funcion donde se dibuja
 				glEnable(GL_LIGHTING);
 			glPopMatrix();
 
-			glPushMatrix(); //islas
+			glPushMatrix(); //pasto islas
 				glDisable(GL_LIGHTING);
-					glTranslatef(-20.0, 1.2, 40.0);
+					glTranslatef(-20.0, 0.5, 40.0);
 					glRotatef(185, 0, 1, 0);
 					glScalef(210.0, 0.0, 100.0);
 					pasto.prisma2(texturaPasto.GLindex,0);
+				glEnable(GL_LIGHTING);
+			glPopMatrix();
+
+
+			glPushMatrix(); //Isla Inge
+				glDisable(GL_LIGHTING);
+				glEnable(GL_TEXTURE_GEN_S);
+				glEnable(GL_TEXTURE_GEN_T);
+				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE,GL_OBJECT_LINEAR); 
+				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+					glTranslatef(25.0, -3.0, 60.0);
+					glScalef(10.0, 2.0, 5.0);
+					isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
+				glDisable(GL_TEXTURE_GEN_S);
+				glDisable(GL_TEXTURE_GEN_T);
+				glEnable(GL_LIGHTING);
+			glPopMatrix();
+
+			glPushMatrix(); //Isla Derecho
+				glDisable(GL_LIGHTING);
+				glEnable(GL_TEXTURE_GEN_S);
+				glEnable(GL_TEXTURE_GEN_T);
+				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+				glTranslatef(25.0, -3.0, 0.0);
+				glScalef(10.0, 2.0, 5.0);
+				isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
+				glDisable(GL_TEXTURE_GEN_S);
+				glDisable(GL_TEXTURE_GEN_T);
+				glEnable(GL_LIGHTING);
+			glPopMatrix();
+
+			glPushMatrix(); //Isla Filos
+				glDisable(GL_LIGHTING);
+				glEnable(GL_TEXTURE_GEN_S);
+				glEnable(GL_TEXTURE_GEN_T);
+				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+				glTranslatef(-80.0, -3.0, 20.0);
+				glScalef(10.0, 2.0, 5.0);
+				isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
+				glDisable(GL_TEXTURE_GEN_S);
+				glDisable(GL_TEXTURE_GEN_T);
 				glEnable(GL_LIGHTING);
 			glPopMatrix();
 
