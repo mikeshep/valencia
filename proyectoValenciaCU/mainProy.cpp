@@ -14,7 +14,11 @@
 CModel rectoria;
 CModel facultadD;
 CModel biblioteca;
+CModel islas;
 
+CFiguras pasto;
+
+CTexture texturaPasto;
 //NEW//////////////////NEW//////////////////NEW//////////////////NEW////////////////
 CCamera objCamera;
 
@@ -102,6 +106,15 @@ void InitGL()     // Inicializamos parametros
 	biblioteca.GLIniTextures();
 	biblioteca.ReleaseTextureImages();
 
+	//islas._3dsLoad("islas/islas.3ds");
+	//islas.LoadTextureImages();
+	//islas.GLIniTextures();
+	//islas.ReleaseTextureImages();
+
+	texturaPasto.LoadTGA("city/pasto01.tga");
+	texturaPasto.BuildGLTexture();
+	texturaPasto.ReleaseImage();
+
 	facultadD._3dsLoad("derecho3DS/derecho.3ds");
 	facultadD.LoadTextureImages();
 	facultadD.GLIniTextures();
@@ -113,6 +126,8 @@ void InitGL()     // Inicializamos parametros
 
 
 	objCamera.Position_Camera(0, 2.5f, 3, 0, 2.5f, 0, 0, 1, 0);
+
+	
 
 }
 
@@ -142,8 +157,8 @@ void display(void)   // Creamos la funcion donde se dibuja
 		gluLookAt(objCamera.mPos.x, objCamera.mPos.y, objCamera.mPos.z,
 			objCamera.mView.x, objCamera.mView.y, objCamera.mView.z,
 			objCamera.mUp.x, objCamera.mUp.y, objCamera.mUp.z);
-
-
+	
+		
 		glPushMatrix();
 
 			glPushMatrix(); //Rectoria
@@ -156,9 +171,18 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 			glPushMatrix(); //Biblioteca
 				glDisable(GL_LIGHTING);
-					glTranslatef(-230.0, 0.0, 50.0);
+					glTranslatef(-200.0, 0.0, 50.0);
 					glScalef(0.4, 0.4, 0.4);
 					biblioteca.GLrender(NULL, _SHADED, 1);
+				glEnable(GL_LIGHTING);
+			glPopMatrix();
+
+			glPushMatrix(); //islas
+				glDisable(GL_LIGHTING);
+					glTranslatef(-20.0, 1.2, 40.0);
+					glRotatef(185, 0, 1, 0);
+					glScalef(210.0, 0.0, 100.0);
+					pasto.prisma2(texturaPasto.GLindex,0);
 				glEnable(GL_LIGHTING);
 			glPopMatrix();
 
@@ -234,14 +258,16 @@ void keyboard(unsigned char key, int x, int y)  // Create Keyboard Function
 		objCamera.Strafe_Camera(CAMERASPEED + 0.4);
 		break;
 
-	case 'r':		//
+	case 'r':		//Cambia posicion de la camara desee arriba
 	case 'R':
-
+		objCamera.Position_Camera(-31.099323, 160.699631, 9.364282, -33.938477, 160.699631, -24.574570, 0.000000, 1.000000, 0.000000);
+		g_lookupdown = 89.0;
 		break;
 
-	case 'f':		//
+	case 'f':		// Posicion inicial
 	case 'F':
-
+		objCamera.Position_Camera(0, 2.5f, 3, 0, 2.5f, 0, 0, 1, 0);
+		g_lookupdown = 0.0;
 		break;
 
 	case 27:        // Cuando Esc es presionado...
