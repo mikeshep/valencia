@@ -20,11 +20,13 @@ CModel islas;
 
 CFiguras pasto;
 CFiguras isla;
+CFiguras camino;
 CTexture t_placasRectoria;
 CTexture t_escalerasIslas;
-
-
+CTexture t_caminoIslas;
 CTexture texturaPasto;
+CTexture t_piedra;
+
 //NEW//////////////////NEW//////////////////NEW//////////////////NEW////////////////
 CCamera objCamera;
 
@@ -133,6 +135,14 @@ void InitGL()     // Inicializamos parametros
 	t_escalerasIslas.LoadTGA("cuadrosrectoria/texturaEsc.tga");
 	t_escalerasIslas.BuildGLTexture();
 	t_escalerasIslas.ReleaseImage();
+
+	t_caminoIslas.LoadTGA("caminoIslas/techo_2.tga");
+	t_caminoIslas.BuildGLTexture();
+	t_caminoIslas.ReleaseImage();
+
+	t_piedra.LoadTGA("caminoIslas/volcan.tga");
+	t_piedra.BuildGLTexture();
+	t_piedra.ReleaseImage();
 
 	quadratic = gluNewQuadric();			// Create A Pointer To The Quadric Object ( NEW )
 	gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
@@ -245,10 +255,54 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glTranslatef(-20.0, 0.5, 40.0);
 	glRotatef(185, 0, 1, 0);
 	glScalef(210.0, 0.0, 100.0);
-	pasto.prisma2(texturaPasto.GLindex, 0);
+	pasto.prisma2(texturaPasto.GLindex, texturaPasto.GLindex);
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
 
+	glPushMatrix(); //camino islas abajo
+	glDisable(GL_LIGHTING);
+	glTranslatef(-15.0, 0.5, 92.0);
+	glRotatef(185, 0, 1, 0);
+	glScalef(210.0, 0.5, 5.0);
+	camino.prisma2(t_caminoIslas.GLindex, t_piedra.GLindex);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	glPushMatrix(); //camino islas arriba
+	glDisable(GL_LIGHTING);
+	glTranslatef(-24.0, 0.5, -10.0);
+	glRotatef(185, 0, 1, 0);
+	glScalef(210.0, 0.5, 5.0);
+	camino.prisma2(t_caminoIslas.GLindex, t_piedra.GLindex);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	glPushMatrix(); //camino islas derecha
+	glDisable(GL_LIGHTING);
+	glTranslatef(81.0, 0.5, 32.0);
+	glRotatef(185, 0, 1, 0);
+	glScalef(8.0, 0.5, 100.0);	
+	camino.prisma2(t_caminoIslas.GLindex, t_piedra.GLindex);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	glPushMatrix(); //camino islas izquierda
+	glDisable(GL_LIGHTING);
+	glTranslatef(-120.0, 0.5, 50.0);
+	glRotatef(185, 0, 1, 0);
+	glScalef(8.0, 0.5, 100.0);
+	camino.prisma2(t_caminoIslas.GLindex, t_piedra.GLindex);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	glPushMatrix(); //barra de derecho
+	glDisable(GL_LIGHTING);
+	glTranslatef(-30.0, 0.5, -20.0);
+	glRotatef(185, 0, 1, 0);
+	glScalef(210.0, 5.0, 5.0);
+	camino.prisma2(t_piedra.GLindex, t_piedra.GLindex);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
 
 	glPushMatrix(); //Isla Inge
 	glDisable(GL_LIGHTING);
@@ -284,8 +338,8 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glEnable(GL_TEXTURE_GEN_T);
 	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-	glTranslatef(-80.0, -3.0, 20.0);
-	glScalef(8.0, 2.0, 5.0);
+	glTranslatef(-60.0, -3.0, 20.0);
+	glScalef(5.0, 2.0, 3.0);
 	isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
