@@ -199,8 +199,8 @@ void escalerasIslasRectoria1(GLfloat ax, GLfloat ay, GLfloat az, GLuint text, GL
 	glBegin(GL_QUADS);//para que se vea la textura bien xD
 	glColor3f(1.0, 1.0, 1.0);
 	glTexCoord2f(0, 0); glVertex3f(ax + ancho, ay, az);
-	glTexCoord2f(1.0, 0); glVertex3f(ax + ancho, ay - 0.24, az);
-	glTexCoord2f(1.0, 1.0); glVertex3f(ax + ancho, ay - 0.24, az + 31.65);
+	glTexCoord2f(1.0, 0); glVertex3f(ax + ancho, ay - 0.0887, az);
+	glTexCoord2f(1.0, 1.0); glVertex3f(ax + ancho, ay - 0.0887, az + 31.65);
 	glTexCoord2f(1, 0.0); glVertex3f(ax + ancho, ay, az + 31.65);
 
 	glEnd();
@@ -226,7 +226,7 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glPushMatrix(); //Rectoria
 	glDisable(GL_LIGHTING);
 	glRotatef(-4, 0, 1, 0);
-	glTranslatef(-235, 7.0, 86.0);
+	glTranslatef(-235, 2.62, 86.0);
 	glScalef(0.017, 0.017, 0.017);
 	rectoria.GLrender(NULL, _SHADED, 1);
 	glEnable(GL_LIGHTING);
@@ -234,8 +234,8 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 	glPushMatrix(); //Biblioteca
 	glDisable(GL_LIGHTING);
-	glTranslatef(-200.0, 0.0, 50.0);
-	glScalef(0.4, 0.4, 0.4);
+	glTranslatef(-209.0, 0.0, 6.5);
+	glScalef(0.6, 0.6, 0.4);
 	biblioteca.GLrender(NULL, _SHADED, 1);
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
@@ -316,7 +316,7 @@ void display(void)   // Creamos la funcion donde se dibuja
 		for (int j = 23129; j > 12000; j = j - 422){
 			GLfloat aux1 = GLfloat(-GLfloat(j) / 100) - 52;
 			//printf("\n%.02f", aux1);
-			generaCuadro(aux1, 7.1, aux, t_placasRectoria.GLindex);
+			generaCuadro(aux1, 2.63, aux, t_placasRectoria.GLindex);
 		}
 	}
 	glEnable(GL_LIGHTING);
@@ -333,14 +333,9 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glEnable(GL_TEXTURE_GEN_T);
 	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
 	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	int j = 710;
+	int j = 263;
 	int cont = 0;
 	for (int i = 16914; i > 14014; i = i - 30){
-		/*for (int i = 710; i > 0; i = i - 23){
-		printf("ebtri2");
-		GLfloat aux1 = GLfloat(GLfloat(i) / 100);
-		escalerasIslasRectoria(aux, aux1, 141.1, t_escalerasIslas.GLindex);
-		}*/
 		GLfloat aux1 = GLfloat(GLfloat(j) / 100);
 		GLfloat aux = GLfloat(-GLfloat(i) / 100);
 		printf("\n%.02f", aux);
@@ -350,7 +345,7 @@ void display(void)   // Creamos la funcion donde se dibuja
 			i = i - 190;
 			printf("entro en cont=[%d]\n", cont);
 		}
-		j = j - 23;
+		j = j - 9;
 		cont++;
 
 	}
@@ -361,6 +356,9 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
 
+	glPushMatrix();//espejo de agua
+		
+	glPopMatrix();
 
 	glColor3f(1.0, 1.0, 1.0);		//Para que los demas elementos regresen a su color de su textura y no permanescan rojos
 	glPopMatrix();
