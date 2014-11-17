@@ -234,8 +234,8 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 	glPushMatrix(); //Biblioteca
 	glDisable(GL_LIGHTING);
-	glTranslatef(-200.0, 0.0, 50.0);
-	glScalef(0.4, 0.4, 0.4);
+	glTranslatef(-208.0, 7.0, 5.0);
+	glScalef(0.45, 0.45, 0.45);
 	biblioteca.GLrender(NULL, _SHADED, 1);
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
@@ -257,7 +257,7 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 	glTranslatef(25.0, -3.0, 60.0);
-	glScalef(10.0, 2.0, 5.0);
+	glScalef(5.0, 2.0, 3.0);
 	isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
@@ -270,8 +270,8 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glEnable(GL_TEXTURE_GEN_T);
 	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-	glTranslatef(25.0, -3.0, 0.0);
-	glScalef(10.0, 2.0, 5.0);
+	glTranslatef(25.0, -3.0, 9.0);
+	glScalef(5.0, 2.0, 3.0);
 	isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
@@ -285,7 +285,7 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 	glTranslatef(-80.0, -3.0, 20.0);
-	glScalef(10.0, 2.0, 5.0);
+	glScalef(8.0, 2.0, 5.0);
 	isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
