@@ -20,6 +20,9 @@ CModel islas;
 
 CFiguras pasto;
 CFiguras isla;
+CTexture t_placasRectoria;
+CTexture t_escalerasIslas;
+
 
 CTexture texturaPasto;
 //NEW//////////////////NEW//////////////////NEW//////////////////NEW////////////////
@@ -123,6 +126,14 @@ void InitGL()     // Inicializamos parametros
 	facultadD.GLIniTextures();
 	facultadD.ReleaseTextureImages();
 
+	t_placasRectoria.LoadTGA("city/pasto01.tga");
+	t_placasRectoria.BuildGLTexture();
+	t_placasRectoria.ReleaseImage();
+
+	t_escalerasIslas.LoadTGA("cuadrosrectoria/texturaEsc.tga");
+	t_escalerasIslas.BuildGLTexture();
+	t_escalerasIslas.ReleaseImage();
+
 	quadratic = gluNewQuadric();			// Create A Pointer To The Quadric Object ( NEW )
 	gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
 	gluQuadricTexture(quadratic, GL_TRUE);		// Create Texture Coords ( NEW )
@@ -130,7 +141,7 @@ void InitGL()     // Inicializamos parametros
 
 	objCamera.Position_Camera(0, 2.5f, 3, 0, 2.5f, 0, 0, 1, 0);
 
-	
+
 
 }
 
@@ -146,6 +157,54 @@ void pintaTexto(float x, float y, float z, void *font, char *string)
 	}
 }
 
+void generaCuadro(GLfloat ax, GLfloat ay, GLfloat az, GLuint text){
+	glBindTexture(GL_TEXTURE_2D, text);
+	glBegin(GL_QUADS);//para que se vea la textura bien xD
+	glColor3f(1.0, 1.0, 1.0);
+	glTexCoord2f(0, 0); glVertex3f(ax, ay, az);
+	glTexCoord2f(1.0, 0); glVertex3f(ax + 3.7, ay, az);
+	glTexCoord2f(1.0, 1.0); glVertex3f(ax + 3.7, ay, az + 3.7);
+	glTexCoord2f(1, 0.0); glVertex3f(ax, ay, az + 3.7);
+	glEnd();
+}
+
+void escalerasIslasRectoria(GLfloat ax, GLfloat ay, GLfloat az, GLuint text, GLint cont){
+	GLfloat ancho;
+	if (cont == 10 || cont == 20)
+		ancho = 2.5;
+	else
+		ancho = 0.3;
+
+	glBindTexture(GL_TEXTURE_2D, text);
+	glBegin(GL_QUADS);//para que se vea la textura bien xD
+	glColor3f(1.0, 1.0, 1.0);
+	glTexCoord2f(0, 0); glVertex3f(ax, ay, az);
+	glTexCoord2f(1.0, 0); glVertex3f(ax + ancho, ay, az);
+	glTexCoord2f(1.0, 1.0); glVertex3f(ax + ancho, ay, az + 31.65);
+	glTexCoord2f(1, 0.0); glVertex3f(ax, ay, az + 31.65);
+
+
+	glEnd();
+}
+
+void escalerasIslasRectoria1(GLfloat ax, GLfloat ay, GLfloat az, GLuint text, GLint cont){
+
+	GLfloat ancho;
+	if (cont == 10 || cont == 20)
+		ancho = 2.5;
+	else
+		ancho = 0.3;
+	glBindTexture(GL_TEXTURE_2D, text);
+
+	glBegin(GL_QUADS);//para que se vea la textura bien xD
+	glColor3f(1.0, 1.0, 1.0);
+	glTexCoord2f(0, 0); glVertex3f(ax + ancho, ay, az);
+	glTexCoord2f(1.0, 0); glVertex3f(ax + ancho, ay - 0.24, az);
+	glTexCoord2f(1.0, 1.0); glVertex3f(ax + ancho, ay - 0.24, az + 31.65);
+	glTexCoord2f(1, 0.0); glVertex3f(ax + ancho, ay, az + 31.65);
+
+	glEnd();
+}
 
 void display(void)   // Creamos la funcion donde se dibuja
 {
@@ -155,92 +214,156 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 
 	glPushMatrix();
-		glRotatef(g_lookupdown, 1.0f, 0, 0);
+	glRotatef(g_lookupdown, 1.0f, 0, 0);
 
-		gluLookAt(objCamera.mPos.x, objCamera.mPos.y, objCamera.mPos.z,
-			objCamera.mView.x, objCamera.mView.y, objCamera.mView.z,
-			objCamera.mUp.x, objCamera.mUp.y, objCamera.mUp.z);
-	
-		
-		glPushMatrix();
-
-			glPushMatrix(); //Rectoria
-				glDisable(GL_LIGHTING);
-				glTranslatef(-230, 0.0,50.0);
-					glScalef(0.009, 0.009, 0.009);
-					rectoria.GLrender(NULL, _SHADED, 1);
-				glEnable(GL_LIGHTING);
-			glPopMatrix();
-
-			glPushMatrix(); //Biblioteca
-				glDisable(GL_LIGHTING);
-					glTranslatef(-200.0, 0.0, 50.0);
-					glScalef(0.4, 0.4, 0.4);
-					biblioteca.GLrender(NULL, _SHADED, 1);
-				glEnable(GL_LIGHTING);
-			glPopMatrix();
-
-			glPushMatrix(); //pasto islas
-				glDisable(GL_LIGHTING);
-					glTranslatef(-20.0, 0.5, 40.0);
-					glRotatef(185, 0, 1, 0);
-					glScalef(210.0, 0.0, 100.0);
-					pasto.prisma2(texturaPasto.GLindex,0);
-				glEnable(GL_LIGHTING);
-			glPopMatrix();
+	gluLookAt(objCamera.mPos.x, objCamera.mPos.y, objCamera.mPos.z,
+		objCamera.mView.x, objCamera.mView.y, objCamera.mView.z,
+		objCamera.mUp.x, objCamera.mUp.y, objCamera.mUp.z);
 
 
-			glPushMatrix(); //Isla Inge
-				glDisable(GL_LIGHTING);
-				glEnable(GL_TEXTURE_GEN_S);
-				glEnable(GL_TEXTURE_GEN_T);
-				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE,GL_OBJECT_LINEAR); 
-				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-					glTranslatef(25.0, -3.0, 60.0);
-					glScalef(10.0, 2.0, 5.0);
-					isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
-				glDisable(GL_TEXTURE_GEN_S);
-				glDisable(GL_TEXTURE_GEN_T);
-				glEnable(GL_LIGHTING);
-			glPopMatrix();
+	glPushMatrix();
 
-			glPushMatrix(); //Isla Derecho
-				glDisable(GL_LIGHTING);
-				glEnable(GL_TEXTURE_GEN_S);
-				glEnable(GL_TEXTURE_GEN_T);
-				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-				glTranslatef(25.0, -3.0, 0.0);
-				glScalef(10.0, 2.0, 5.0);
-				isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
-				glDisable(GL_TEXTURE_GEN_S);
-				glDisable(GL_TEXTURE_GEN_T);
-				glEnable(GL_LIGHTING);
-			glPopMatrix();
+	glPushMatrix(); //Rectoria
+	glDisable(GL_LIGHTING);
+	glRotatef(-4, 0, 1, 0);
+	glTranslatef(-235, 7.0, 86.0);
+	glScalef(0.017, 0.017, 0.017);
+	rectoria.GLrender(NULL, _SHADED, 1);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
 
-			glPushMatrix(); //Isla Filos
-				glDisable(GL_LIGHTING);
-				glEnable(GL_TEXTURE_GEN_S);
-				glEnable(GL_TEXTURE_GEN_T);
-				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-				glTranslatef(-80.0, -3.0, 20.0);
-				glScalef(10.0, 2.0, 5.0);
-				isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
-				glDisable(GL_TEXTURE_GEN_S);
-				glDisable(GL_TEXTURE_GEN_T);
-				glEnable(GL_LIGHTING);
-			glPopMatrix();
+	glPushMatrix(); //Biblioteca
+	glDisable(GL_LIGHTING);
+	glTranslatef(-200.0, 0.0, 50.0);
+	glScalef(0.4, 0.4, 0.4);
+	biblioteca.GLrender(NULL, _SHADED, 1);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
 
-			glPushMatrix(); //facultad de derecho
-				glDisable(GL_LIGHTING);
-					glTranslatef(-32.0, 0.0, -9.0);
-					glScalef(0.7, 0.7, 0.7);
-					facultadD.GLrender(NULL, _SHADED, 1);
-				glEnable(GL_LIGHTING);
-			glPopMatrix();
-			glColor3f(1.0, 1.0, 1.0);		//Para que los demas elementos regresen a su color de su textura y no permanescan rojos
-		glPopMatrix();
+	glPushMatrix(); //pasto islas
+	glDisable(GL_LIGHTING);
+	glTranslatef(-20.0, 0.5, 40.0);
+	glRotatef(185, 0, 1, 0);
+	glScalef(210.0, 0.0, 100.0);
+	pasto.prisma2(texturaPasto.GLindex, 0);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+
+	glPushMatrix(); //Isla Inge
+	glDisable(GL_LIGHTING);
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	glTranslatef(25.0, -3.0, 60.0);
+	glScalef(10.0, 2.0, 5.0);
+	isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
+	glDisable(GL_TEXTURE_GEN_S);
+	glDisable(GL_TEXTURE_GEN_T);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	glPushMatrix(); //Isla Derecho
+	glDisable(GL_LIGHTING);
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	glTranslatef(25.0, -3.0, 0.0);
+	glScalef(10.0, 2.0, 5.0);
+	isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
+	glDisable(GL_TEXTURE_GEN_S);
+	glDisable(GL_TEXTURE_GEN_T);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	glPushMatrix(); //Isla Filos
+	glDisable(GL_LIGHTING);
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	glTranslatef(-80.0, -3.0, 20.0);
+	glScalef(10.0, 2.0, 5.0);
+	isla.esfera(5.0, 15.0, 15.0, texturaPasto.GLindex);
+	glDisable(GL_TEXTURE_GEN_S);
+	glDisable(GL_TEXTURE_GEN_T);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	glPushMatrix(); //facultad de derecho
+	glDisable(GL_LIGHTING);
+	glRotatef(-4, 0, 1, 0);
+	glTranslatef(-32.0, 0.0, -9.0);
+	glScalef(0.7, 0.7, 0.7);
+	facultadD.GLrender(NULL, _SHADED, 1);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+
+	glPushMatrix();//pastoRectoria
+	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);//GL_ONE_MINUS_SRC_ALPHA,GL_ONE_MINUS_DST_COLOR GL_ONE_MINUS_SRC_COLOR
+	for (int i = 17616; i > 6943; i = i - 422){
+		GLfloat aux = GLfloat(GLfloat(i) / 100) - 52;
+		//printf("\n%.02f", aux);
+		for (int j = 23129; j > 12000; j = j - 422){
+			GLfloat aux1 = GLfloat(-GLfloat(j) / 100) - 52;
+			//printf("\n%.02f", aux1);
+			generaCuadro(aux1, 7.1, aux, t_placasRectoria.GLindex);
+		}
+	}
+	glEnable(GL_LIGHTING);
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_TEXTURE_GEN_S);
+	glDisable(GL_TEXTURE_GEN_T);
+	glPopMatrix();
+
+	glPushMatrix();//escaleras
+	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	int j = 710;
+	int cont = 0;
+	for (int i = 16914; i > 14014; i = i - 30){
+		/*for (int i = 710; i > 0; i = i - 23){
+		printf("ebtri2");
+		GLfloat aux1 = GLfloat(GLfloat(i) / 100);
+		escalerasIslasRectoria(aux, aux1, 141.1, t_escalerasIslas.GLindex);
+		}*/
+		GLfloat aux1 = GLfloat(GLfloat(j) / 100);
+		GLfloat aux = GLfloat(-GLfloat(i) / 100);
+		printf("\n%.02f", aux);
+		escalerasIslasRectoria(aux, aux1, 19.18, t_escalerasIslas.GLindex, cont);
+		escalerasIslasRectoria1(aux, aux1, 19.18, t_escalerasIslas.GLindex, cont);
+		if (cont == 10 || cont == 20){
+			i = i - 190;
+			printf("entro en cont=[%d]\n", cont);
+		}
+		j = j - 23;
+		cont++;
+
+	}
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_TEXTURE_GEN_T);
+	glDisable(GL_TEXTURE_GEN_S);
+	glDisable(GL_BLEND);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+
+	glColor3f(1.0, 1.0, 1.0);		//Para que los demas elementos regresen a su color de su textura y no permanescan rojos
+	glPopMatrix();
 	glPopMatrix();
 
 	glDisable(GL_TEXTURE_2D);
