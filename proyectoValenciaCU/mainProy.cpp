@@ -16,6 +16,8 @@ CModel facultadD;
 CModel biblioteca;
 CModel islas;
 
+//wevos
+
 CFiguras pasto;
 CFiguras isla;
 
