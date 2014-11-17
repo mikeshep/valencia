@@ -15,6 +15,8 @@ CModel rectoria;
 CModel facultadD;
 CModel biblioteca;
 CModel islas;
+CModel torreHumanidades;
+CModel torreHumanidades2;
 
 GLfloat razon = 3.141592 * 2;
 
@@ -167,10 +169,15 @@ void InitGL()     // Inicializamos parametros
 	biblioteca.GLIniTextures();
 	biblioteca.ReleaseTextureImages();
 
-	//islas._3dsLoad("islas/islas.3ds");
-	//islas.LoadTextureImages();
-	//islas.GLIniTextures();
-	//islas.ReleaseTextureImages();
+	torreHumanidades._3dsLoad("torreHumanidades/torreHumanidades.3ds");
+	torreHumanidades.LoadTextureImages();
+	torreHumanidades.GLIniTextures();
+	torreHumanidades.ReleaseTextureImages();
+
+	torreHumanidades2._3dsLoad("torreHumanidades2/torreHumanidades2.3ds");
+	torreHumanidades2.LoadTextureImages();
+	torreHumanidades2.GLIniTextures();
+	torreHumanidades2.ReleaseTextureImages();
 
 	texturaPasto.LoadTGA("city/pasto01.tga");
 	texturaPasto.BuildGLTexture();
@@ -1814,6 +1821,24 @@ void display(void)   // Creamos la funcion donde se dibuja
 	//rectoria.GLrender(NULL, _SHADED, 1);
 	//glEnable(GL_LIGHTING);
 	//glPopMatrix();
+
+
+	glPushMatrix(); //Humanidades 1
+	glDisable(GL_LIGHTING);
+	glTranslatef(-80.0, 5.0, -50.0);
+	glScalef(0.45, 0.45, 0.45);
+	torreHumanidades.GLrender(NULL, _SHADED, 1);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	glPushMatrix(); //Humanidades 2
+	glDisable(GL_LIGHTING);
+	glTranslatef(220.0, 0.0, 0.0);
+	glScalef(0.45, 0.45, 0.45);
+	torreHumanidades2.GLrender(NULL, _SHADED, 1);
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
 
 	glPushMatrix(); //Biblioteca
 	glDisable(GL_LIGHTING);
