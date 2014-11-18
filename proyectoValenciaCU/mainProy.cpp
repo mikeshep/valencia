@@ -1807,8 +1807,8 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glPopMatrix();
 
 	glPushMatrix(); //Diseño Industrial
-	glRotatef(-90, 0.0, 1.0, 0.0);
-	glTranslatef(50, 04, -180);
+	glRotatef(-88, 0.0, 1.0, 0.0);
+	glTranslatef(65, 0, -90);
 
 	disenoIndustrial();
 	glPopMatrix();
@@ -1825,7 +1825,7 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 	glPushMatrix(); //Humanidades 1
 	glDisable(GL_LIGHTING);
-	glTranslatef(-80.0, 5.0, -50.0);
+	glTranslatef(-66.7, 8.0, -51.0);
 	glScalef(0.45, 0.45, 0.45);
 	torreHumanidades.GLrender(NULL, _SHADED, 1);
 	glEnable(GL_LIGHTING);
@@ -1833,8 +1833,8 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 	glPushMatrix(); //Humanidades 2
 	glDisable(GL_LIGHTING);
-	glTranslatef(220.0, 0.0, 0.0);
-	glScalef(0.45, 0.45, 0.45);
+	glTranslatef(130.0, 0.0, 35.0);
+	glScalef(0.6, 0.6, 0.6);
 	torreHumanidades2.GLrender(NULL, _SHADED, 1);
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
