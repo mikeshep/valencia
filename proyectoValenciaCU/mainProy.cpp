@@ -376,6 +376,10 @@ void InitGL()     // Inicializamos parametros
 	v_di.BuildGLTexture();
 	v_di.ReleaseImage();
 
+	salones.LoadTGA("salones.tga");
+	salones.BuildGLTexture();
+	salones.ReleaseImage();
+
 	t_piedra.LoadTGA("biblioteca/volcan.tga");
 	t_piedra.BuildGLTexture();
 	t_piedra.ReleaseImage();
@@ -2823,11 +2827,13 @@ void keyboard(unsigned char key, int x, int y)  // Create Keyboard Function
 	case 'u': //Cambia la posicion hacia la biblioteca de frente
 	case 'U':
 		objCamera.Position_Camera(-195.990341, 18.600000, 34.589989, -195.990341, 18.600000, 31.589987, 0.0, 1.0,0.0);
+		g_lookupdown = 0.0;
 		break;
 
 	case 'i': //Cambia la posicion hacia la biblioteca de frente
 	case 'I':
 		objCamera.Position_Camera(90.605507, 10.899999, 24.190191, 93.604088, 10.899999, 24.097816, 0.00000,1.0,0.0);
+		g_lookupdown = 0.0;
 		break;
 
 	case 'f':		// Posicion inicial
