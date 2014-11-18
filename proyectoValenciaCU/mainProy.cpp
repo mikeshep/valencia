@@ -1753,6 +1753,11 @@ void display(void)   // Creamos la funcion donde se dibuja
 		objCamera.mView.x, objCamera.mView.y, objCamera.mView.z,
 		objCamera.mUp.x, objCamera.mUp.y, objCamera.mUp.z);
 
+	printf("%f ,%f, %f, %f, %f, %f, %f, %f", objCamera.mPos.x, objCamera.mPos.y, objCamera.mPos.z,
+		objCamera.mView.x, objCamera.mView.y, objCamera.mView.z,
+		objCamera.mUp.x, objCamera.mUp.y, objCamera.mUp.z);
+
+	printf("Look: %f", g_lookupdown);
 
 	glPushMatrix();
 
@@ -2086,6 +2091,16 @@ void keyboard(unsigned char key, int x, int y)  // Create Keyboard Function
 		g_lookupdown = 89.0;
 		break;
 
+	case 'u': //Cambia la posicion hacia la biblioteca de frente
+	case 'U':
+		objCamera.Position_Camera(-195.990341, 18.600000, 34.589989, -195.990341, 18.600000, 31.589987, 0.0, 1.0,0.0);
+		break;
+
+	case 'i': //Cambia la posicion hacia la biblioteca de frente
+	case 'I':
+		objCamera.Position_Camera(90.605507, 10.899999, 24.190191, 93.604088, 10.899999, 24.097816, 0.00000,1.0,0.0);
+		break;
+
 	case 'f':		// Posicion inicial
 	case 'F':
 		objCamera.Position_Camera(0, 2.5f, 3, 0, 2.5f, 0, 0, 1, 0);
@@ -2096,6 +2111,7 @@ void keyboard(unsigned char key, int x, int y)  // Create Keyboard Function
 		exit(0);   // Salimos del programa
 		break;
 	case 'p':
+	case 'P':
 		//pos_camY -= 0.5f;
 		//pos_cam.y += 0.5f;
 		//eye_cam.y += 0.5f;
@@ -2103,6 +2119,7 @@ void keyboard(unsigned char key, int x, int y)  // Create Keyboard Function
 		break;
 
 	case 'l':
+	case 'L':
 		//pos_camY += 0.5f;
 		//pos_cam.y -= 0.5f;
 		//eye_cam.y -= 0.5f;
