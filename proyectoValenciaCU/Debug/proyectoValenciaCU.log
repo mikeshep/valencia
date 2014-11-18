@@ -1,4 +1,4 @@
-﻿Compilación iniciada a las 17/11/2014 06:51:21 p. m..
+﻿Compilación iniciada a las 17/11/2014 07:14:18 p. m..
      1>Proyecto "C:\Users\SAIC_3\Source\Repos\valencia\proyectoValenciaCU\proyectoValenciaCU.vcxproj" en el nodo 2 (Build destinos).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D WIN32 /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt mainProy.cpp
@@ -23,4 +23,4 @@
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:01.01
+Tiempo transcurrido 00:00:01.00
