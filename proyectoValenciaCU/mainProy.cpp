@@ -500,6 +500,7 @@ void arrow_keys(int a_keys, int x, int y)  // Funcion para manejo de teclas espe
 }
 
 
+
 int main(int argc, char** argv)   // Main Function
 {
 	glutInit(&argc, argv); // Inicializamos OpenGL
