@@ -1568,6 +1568,728 @@ void disenoIndustrial()
 	glPopMatrix();
 }
 
+void escalera_Principal()
+{
+	for (int i = 0; i<10; i++)
+	{
+		glBindTexture(GL_TEXTURE_2D, piedra_Dext.GLindex);
+		glBegin(GL_QUADS);
+		//Plano horizontal escalón
+		glNormal3f(0.0, 1.0, 0.0);
+		glTexCoord2f(0.0, 0.0); glVertex3f(0.0, i*0.15, -0.3*i);
+		glTexCoord2f(1.0, 0.0); glVertex3f(1.9, i*0.15, -0.3*i);
+		glTexCoord2f(01.0, 1.0); glVertex3f(1.9, i*0.15, -0.3*(i + 1));
+		glTexCoord2f(0.0, 1.0); glVertex3f(0.0, i*0.15, -0.3*(i + 1));
+
+		//Plano vertical escalón
+		glNormal3f(0.0, 0.0, 1.0);
+		glTexCoord2f(0.0, 0.0); glVertex3f(0.0, i*0.15, -0.3*(i + 1));
+		glTexCoord2f(1.0, 0.0); glVertex3f(1.9, i*0.15, -0.3*(i + 1));
+		glTexCoord2f(1.0, 1.0); glVertex3f(1.9, 0.15*(i + 1), -0.3*(i + 1));
+		glTexCoord2f(0.0, 1.0); glVertex3f(0.0, 0.15*(i + 1), -0.3*(i + 1));
+		glEnd();
+	}
+
+	//Descanso entre escaleras
+	glBindTexture(GL_TEXTURE_2D, piedra_Dext.GLindex);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 3.0); glVertex3f(0.0, 1.5, -3.0);
+	glTexCoord2f(3.0, 3.0); glVertex3f(5.2, 1.5, -3.0);
+	glTexCoord2f(3.0, 0.0); glVertex3f(5.2, 1.5, -5.0);
+	glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 1.5, -5.0);
+	glEnd();
+
+	for (int i = 0; i<10; i++)
+	{
+		glBindTexture(GL_TEXTURE_2D, piedra_Dext.GLindex);
+		glBegin(GL_QUADS);
+		//Segundo tramo escaleras
+		glNormal3f(0.0, 1.0, 0.0);
+		glTexCoord2f(1.0, 0.0); glVertex3f(5.2, 1.5 + (0.15*i), -3.0 + (0.3*i));
+		glTexCoord2f(0.0, 0.0); glVertex3f(3.3, 1.5 + (0.15*i), -3.0 + (0.3*i));
+		glTexCoord2f(0.0, 1.0); glVertex3f(3.3, 1.5 + (0.15*i), -3.0 + (0.3*(i + 1)));
+		glTexCoord2f(1.0, 1.0); glVertex3f(5.2, 1.5 + (0.15*i), -3.0 + (0.3*(i + 1)));
+
+		//Plano vertical
+		glNormal3f(0.0, 0.0, 1.0);
+		glTexCoord2f(0.0, 0.0); glVertex3f(3.3, 1.5 + (0.15*i), -3.0 + (0.3*(i + 1)));
+		glTexCoord2f(0.0, 1.0); glVertex3f(3.3, 1.5 + (0.15*(i + 1)), -3.0 + (0.3*(i + 1)));
+		glTexCoord2f(1.0, 1.0); glVertex3f(5.2, 1.5 + (0.15*(i + 1)), -3.0 + (0.3*(i + 1)));
+		glTexCoord2f(1.0, 0.0); glVertex3f(5.2, 1.5 + (0.15*i), -3.0 + (0.3*(i + 1)));
+
+		glEnd();
+	}
+}
+
+void barandal_Principal(int inicio)
+{
+	glBegin(GL_QUADS);
+	if (inicio == 0)
+	{
+		//Plano pegado a la escalera
+		glNormal3f(1.0, 0.0, 0.0);
+		glVertex3f(0.0, 0.0, 0.0);
+		glVertex3f(0.0, 0.0, -3.0);
+		glVertex3f(0.0, 2.25, -3.0);
+		glVertex3f(0.0, 0.75, 0.0);
+	}
+	else
+	{
+		glVertex3f(0.0, -0.2, 0.0);
+		glVertex3f(0.0, 1.45, -3.0);
+		glVertex3f(0.0, 2.25, -3.0);
+		glVertex3f(0.0, 0.75, 0.0);
+	}
+
+
+	//Plano del descanso pegado a la escalera
+	glVertex3f(0.0, 2.25, -3.0);
+	glVertex3f(0.0, 1.45, -3.0);
+	glVertex3f(0.0, 1.45, -5.2);
+	glVertex3f(0.0, 2.25, -5.2);
+
+	//Plano del descanso externo
+	if (inicio == 0)
+	{
+		glVertex3f(-0.2, 2.25, -3.0);
+		glVertex3f(-0.2, 0.0, -3.0);
+		glVertex3f(-0.2, 0.0, -5.0);
+		glVertex3f(-0.2, 2.25, -5.0);
+	}
+	else
+	{
+		glVertex3f(-0.2, 2.25, -3.0);
+		glVertex3f(-0.2, 1.45, -3.0);
+		glVertex3f(-0.2, 1.45, -5.0);
+		glVertex3f(-0.2, 2.25, -5.0);
+	}
+
+
+	if (inicio == 1){
+		//Plano externo
+		glVertex3f(-0.2, -0.2, 0.0);
+		glVertex3f(-0.2, 0.75, 0.0);
+		glVertex3f(-0.2, 2.25, -3.0);
+		glVertex3f(-0.2, 1.4, -3.0);
+	}
+	else
+	{
+		glVertex3f(-0.2, 0.0, 0.0);
+		glVertex3f(-0.2, 0.75, 0.0);
+		glVertex3f(-0.2, 2.25, -3.0);
+		glVertex3f(-0.2, 0.0, -3.0);
+	}
+
+
+	if (inicio == 0){
+		//Uniones
+		glVertex3f(0.0, 0.0, 0.0);
+		glVertex3f(0.0, 0.75, 0.0);
+		glVertex3f(-0.2, 0.75, 0.0);
+		glVertex3f(-0.2, 0.0, 0.0);
+	}
+	else
+	{
+		glVertex3f(0.0, -0.2, 0.0);
+		glVertex3f(0.0, 0.75, 0.0);
+		glVertex3f(-0.2, 0.75, 0.0);
+		glVertex3f(-0.2, -0.2, 0.0);
+	}
+
+	//Inclinada
+	glVertex3f(0.0, 0.75, 0.0);
+	glVertex3f(0.0, 2.25, -3.0);
+	glVertex3f(-0.2, 2.25, -3.0);
+	glVertex3f(-0.2, 0.75, 0.0);
+
+
+	//Superior descanso izquierdo
+	glVertex3f(0.0, 2.25, -3.0);
+	glVertex3f(0.0, 2.25, -5.0);
+	glVertex3f(-0.2, 2.25, -5.0);
+	glVertex3f(-0.2, 2.25, -3.0);
+
+
+	//Interno descanso
+	glVertex3f(0.0, 1.45, -5.0);
+	glVertex3f(5.2, 1.45, -5.0);
+	glVertex3f(5.2, 2.25, -5.0);
+	glVertex3f(0.0, 2.25, -5.0);
+
+	if (inicio == 0)
+	{
+		//Externo descanso
+		glVertex3f(-0.2, 0.0, -5.2);
+		glVertex3f(-0.2, 2.25, -5.2);
+		glVertex3f(5.4, 2.25, -5.2);
+		glVertex3f(5.4, 0.0, -5.2);
+	}
+	else
+	{
+		glVertex3f(-0.2, 1.45, -5.2);
+		glVertex3f(-0.2, 2.25, -5.2);
+		glVertex3f(5.4, 2.25, -5.2);
+		glVertex3f(5.4, 1.45, -5.2);
+	}
+
+	//Superior entre descanso
+	glVertex3f(-0.2, 2.25, -5.0);
+	glVertex3f(5.4, 2.25, -5.0);
+	glVertex3f(5.4, 2.25, -5.2);
+	glVertex3f(-0.2, 2.25, -5.2);
+
+	if (inicio == 0){
+		//Plano faltante cara externa
+		glVertex3f(-0.2, 2.25, -5.0);
+		glVertex3f(-0.2, 2.25, -5.2);
+		glVertex3f(-0.2, 0.0, -5.2),
+			glVertex3f(-0.2, 0.0, -5.0);
+	}
+	else
+	{
+		glVertex3f(-0.2, 2.25, -5.0);
+		glVertex3f(-0.2, 2.25, -5.2);
+		glVertex3f(-0.2, 1.45, -5.2),
+			glVertex3f(-0.2, 1.45, -5.0);
+	}
+
+
+	if (inicio == 0){
+		//Parte baja a descanso, parte interna
+		glVertex3f(1.9, 0.0, 0.0);
+		glVertex3f(1.9, 0.75, 0.0);
+		glVertex3f(1.9, 2.0, -2.9);
+		glVertex3f(1.9, 0.0, -2.9);
+	}
+	else
+	{
+		glVertex3f(1.9, -0.2, 0.0);
+		glVertex3f(1.9, 0.75, 0.0);
+		glVertex3f(1.9, 2.0, -2.9);
+		glVertex3f(1.9, 1.2, -2.9);
+	}
+
+
+	if (inicio == 0)
+	{
+		//Parte baja a descanso, parte externa
+		glVertex3f(2.1, 0.0, 0.0);
+		glVertex3f(2.1, 0.0, -2.9);
+		glVertex3f(2.1, 2.0, -2.9);
+		glVertex3f(2.1, 0.75, 0.0);
+	}
+	else
+	{
+		glVertex3f(2.1, -0.2, 0.0);
+		glVertex3f(2.1, 1.45, -2.9);
+		glVertex3f(2.1, 2.0, -2.9);
+		glVertex3f(2.1, 0.75, 0.0);
+	}
+
+
+
+	if (inicio == 0)
+	{
+		//Uniones
+		glVertex3f(1.9, 0.0, 0.0);
+		glVertex3f(2.1, 0.0, 0.0);
+		glVertex3f(2.1, 0.75, 0.0);
+		glVertex3f(1.9, 0.75, 0.0);
+	}
+	else
+	{
+		glVertex3f(1.9, -0.2, 0.0);
+		glVertex3f(2.1, -0.2, 0.0);
+		glVertex3f(2.1, 0.75, 0.0);
+		glVertex3f(1.9, 0.75, 0.0);
+	}
+
+
+	//Unión inclinada
+	glVertex3f(1.9, 0.75, 0.0);
+	glVertex3f(2.1, 0.75, 0.0);
+	glVertex3f(2.1, 2.0, -2.9);
+	glVertex3f(1.9, 2.0, -2.9);
+
+	glColor3f(0.0, 0.0, 1.0);
+	//Unión interna descanso
+	glVertex3f(1.9, 1.45, -3.0);
+	glVertex3f(1.9, 2.25, -3.0);
+	glVertex3f(3.1, 2.25, -3.0);
+	glVertex3f(3.1, 1.45, -3.0);
+	glColor3f(1.0, 1.0, 1.0);
+
+
+	if (inicio == 0)
+	{
+		//Union externa descanso
+		glVertex3f(2.1, 2.25, -2.8);
+		glVertex3f(2.1, 0.0, -2.8);
+		glVertex3f(3.1, 0.0, -2.8);
+		glVertex3f(3.1, 2.25, -2.8);
+	}
+	else
+	{
+		glVertex3f(2.1, 2.25, -2.8);
+		glVertex3f(2.1, 1.45, -2.8);
+		glVertex3f(3.1, 1.45, -2.8);
+		glVertex3f(3.1, 2.25, -2.8);
+	}
+
+	//Unión superior descanso
+	glVertex3f(1.9, 2.25, -2.8);
+	glVertex3f(3.1, 2.25, -2.8);
+	glVertex3f(3.1, 2.25, -3.0);
+	glVertex3f(1.9, 2.25, -3.0);
+
+
+
+
+	//Plano faltante interior descanso
+	if (inicio == 0)
+	{
+		glVertex3f(1.9, 1.0, -2.8);
+		glVertex3f(1.9, 2.25, -2.8);
+		glVertex3f(1.9, 2.25, -3.0);
+		glVertex3f(1.9, 1.0, -3.0);
+	}
+	else
+	{
+		glVertex3f(1.9, 1.2, -2.8);
+		glVertex3f(1.9, 2.25, -2.8);
+		glVertex3f(1.9, 2.25, -3.0);
+		glVertex3f(1.9, 1.5, -3.0);
+	}
+
+	//Plano pequeño en descanso auxiliar
+	glVertex3f(1.9, 1.75, -2.8);
+	glVertex3f(2.1, 1.75, -2.8);
+	glVertex3f(2.1, 2.25, -2.8);
+	glVertex3f(1.9, 2.25, -2.8);
+
+	//Descanso a primer nivel, cara interna
+	glVertex3f(3.3, 1.2, -3.0);
+	glVertex3f(3.3, 2.5, 0.0);
+	glVertex3f(3.3, 3.75, 0.0);
+	glVertex3f(3.3, 2.25, -3.0);
+
+	//Descanso a primer nivel, cara externa
+	glVertex3f(3.1, 1.2, -3.0);
+	glVertex3f(3.1, 2.5, 0.0);
+	glVertex3f(3.1, 3.75, 0.0);
+	glVertex3f(3.1, 2.25, -3.0);
+
+	//Unión sobre descanso inferior
+	glVertex3f(3.1, 1.2, -3.0);
+	glVertex3f(3.3, 1.2, -3.0);
+	glVertex3f(3.3, 2.5, 0.0);
+	glVertex3f(3.1, 2.5, 0.0);
+
+	//Unión sobre descanso
+	glVertex3f(3.1, 2.25, -3.0);
+	glVertex3f(3.3, 2.25, -3.0);
+	glVertex3f(3.3, 1.45, -3.0);
+	glVertex3f(3.1, 1.45, -3.0);
+
+	//Unión barandal
+	glVertex3f(3.1, 2.25, -3.0);
+	glVertex3f(3.1, 3.75, 0.0);
+	glVertex3f(3.3, 3.75, 0.0);
+	glVertex3f(3.3, 2.25, -3.0);
+
+	//Parte externa descanso a primer nivel, cara interna
+	glVertex3f(5.2, 1.45, -5.0);
+	glVertex3f(5.2, 1.45, -3.0);
+	glVertex3f(5.2, 2.25, -3.0);
+	glVertex3f(5.2, 2.25, -5.0);
+
+	//Parte externa descanso a primer nivel, cara externa
+	if (inicio == 0)
+	{
+		glVertex3f(5.4, 0.0, -5.2);
+		glVertex3f(5.4, 2.25, -5.2);
+		glVertex3f(5.4, 2.25, -3.0);
+		glVertex3f(5.4, 0.0, -3.0);
+	}
+	else
+	{
+		glVertex3f(5.4, 1.45, -5.2);
+		glVertex3f(5.4, 2.25, -5.2);
+		glVertex3f(5.4, 2.25, -3.0);
+		glVertex3f(5.4, 1.45, -3.0);
+	}
+
+	//Unión de barandal
+	glVertex3f(5.2, 2.25, -5.0);
+	glVertex3f(5.2, 2.25, -3.0);
+	glVertex3f(5.4, 2.25, -3.0);
+	glVertex3f(5.4, 2.25, -5.0);
+
+	//Barandal a primer nivel, cara interna
+	glVertex3f(5.2, 1.0, -3.0);
+	glVertex3f(5.2, 2.5, 0.0);
+	glVertex3f(5.2, 3.75, 0.0);
+	glVertex3f(5.2, 2.25, -3.0);
+
+	//Barandal a primer nivel, cara externa
+	if (inicio == 0)
+	{
+		glVertex3f(5.4, 1.0, -3.0);
+		glVertex3f(5.4, 2.5, 0.0);
+		glVertex3f(5.4, 3.75, 0.0);
+		glVertex3f(5.4, 2.25, -3.0);
+	}
+	else
+	{
+		glVertex3f(5.4, 1.45, -3.0);
+		glVertex3f(5.4, 2.5, 0.0);
+		glVertex3f(5.4, 3.75, 0.0);
+		glVertex3f(5.4, 2.25, -3.0);
+	}
+
+	//Unión barandal
+	glVertex3f(5.2, 2.25, -3.0);
+	glVertex3f(5.2, 3.75, 0.0);
+	glVertex3f(5.4, 3.75, 0.0);
+	glVertex3f(5.4, 2.25, -3.0);
+
+	//Unión sobre descanso inferior
+	if (inicio == 0)
+	{
+		glVertex3f(5.2, 1.0, -3.0);
+		glVertex3f(5.4, 1.0, -3.0);
+		glVertex3f(5.4, 2.5, 0.0);
+		glVertex3f(5.2, 2.5, 0.0);
+	}
+	else
+	{
+		glVertex3f(5.2, 1.45, -3.0);
+		glVertex3f(5.4, 1.45, -3.0);
+		glVertex3f(5.4, 2.5, 0.0);
+		glVertex3f(5.2, 2.5, 0.0);
+	}
+
+	//Unión barandal en primer nivel, derecho
+	glVertex3f(5.2, 2.5, 0.0);
+	glVertex3f(5.4, 2.5, 0.0);
+	glVertex3f(5.4, 3.75, 0.0);
+	glVertex3f(5.2, 3.75, 0.0);
+
+	//Unión barandal en primer nivel, izquierdo
+	glVertex3f(3.1, 2.5, 0.0);
+	glVertex3f(3.3, 2.5, 0.0);
+	glVertex3f(3.3, 3.75, 0.0);
+	glVertex3f(3.1, 3.75, 0.0);
+
+
+
+	//Plano a piso desde descanso
+	if (inicio == 0)
+	{
+		glVertex3f(3.1, 1.45, -2.8);
+		glVertex3f(3.1, 0.0, -2.8);
+		glVertex3f(5.4, 0.0, -2.8);
+		glVertex3f(5.4, 1.45, -2.8);
+
+		//Plano aunxiliar
+		glVertex3f(5.4, 0.0, -3.0);
+		glVertex3f(5.4, 1.0, -3.0);
+		glVertex3f(5.4, 1.0, -2.8);
+		glVertex3f(5.4, 0.0, -2.8);
+	}
+
+	//Barandal descanso primer nivel,externo
+	glVertex3f(2.1, 3.0, -0.2);
+	glVertex3f(2.1, 3.75, -0.2);
+	glVertex3f(3.3, 3.75, -0.2);
+	glVertex3f(3.3, 3.0, -0.2);
+
+	//Barandal descanso primer nivel, interno
+	glVertex3f(2.1, 3.0, 0.0);
+	glVertex3f(2.1, 3.75, 0.0);
+	glVertex3f(3.3, 3.75, 0.0);
+	glVertex3f(3.3, 3.0, 0.0);
+
+	//Unión barandel primer nivel, superior
+	glVertex3f(2.1, 3.75, 0.0);
+	glVertex3f(2.1, 3.75, -0.2);
+	glVertex3f(3.3, 3.75, -0.2);
+	glVertex3f(3.3, 3.75, 0.0);
+
+
+	glEnd();
+}
+
+void pisosPrincipal()
+{
+	for (int i = 0; i<4; i++)
+	{
+		glPushMatrix();
+		glTranslatef(0.0, 3 * i, 0.0);
+		if (i == 0)	barandal_Principal(0);
+		else		barandal_Principal(1);
+		escalera_Principal();
+		glPopMatrix();
+	}
+}
+
+void puentePrincipal()
+{
+	glPushMatrix();
+	glTranslatef(0.0, -5.0, 0.0);
+	//Arco de soporte
+	glPushMatrix();
+	glRotatef(90, 0.0, 0.0, 1.0);
+	glRotatef(45, 0.0, 1.0, 0.0);
+	medioCilindroPuente(3, 6, 5.5, 10);
+	glPopMatrix();
+
+	//Pasillo parte baja
+	glPushMatrix();
+	glTranslatef(0.0, 6.125, 0.0);
+	prisma(3, 0.25, 8.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glPopMatrix();
+
+	//Columnas
+	glPushMatrix();
+	glTranslatef(-1.0, 7.3, 3.7);
+	glScalef(1.0, 1.2, 1.0);
+	for (int i = 0; i<9; i++)
+	{
+		glPushMatrix();
+		glTranslatef(0.0, 0.0, -i*0.9);
+		cilindro(2.0, 0.1, 10);
+		glTranslatef(2.0, 0.0, 0.0);
+		cilindro(2.0, 0.1, 10);
+		glPopMatrix();
+	}
+	glPopMatrix();
+
+	//Pasillo parte alta
+	glPushMatrix();
+	glTranslatef(0.0, 8.5, 0.0);
+	prisma(3, 0.25, 8.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glPopMatrix();
+
+	//Barandales
+	glPushMatrix();
+	glTranslatef(1.4, 6.3, 0.0);
+	prisma(0.2, 0.2, 8.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glTranslatef(-2.8, 0.0, 0.0);
+	prisma(0.2, 0.2, 8.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glTranslatef(0.0, 2.4, 0.0);
+	prisma(0.2, 0.2, 8.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glTranslatef(2.8, 0.0, 0.0);
+	prisma(0.2, 0.2, 8.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
+void plantaPrincipal(int a)
+{
+	if (a == 0)
+	{
+		glPushMatrix();
+		glTranslatef(0.0, 0.0, 2.5);
+		prisma(24.5, 0.5, 5, 0, p_arq.GLindex, p_arq.GLindex, p_arq.GLindex, p_gral.GLindex, t_di.GLindex, 1, 1, 1, 1, 1, 1, 1, 1, 50, 3, 0, 0);
+		glPopMatrix();
+	}
+	else
+	{
+		glPushMatrix();
+		glTranslatef(0.0, 0.0, 3.0);
+		prisma(24.5, 0.5, 4, p_arq.GLindex, p_arq.GLindex, p_arq.GLindex, p_arq.GLindex, p_gral.GLindex, 0, 1, 1, 1, 1, 1, 1, 1, 1, 10, 2, 0, 0);
+		glPopMatrix();
+	}
+	glPushMatrix();
+	glTranslatef(0.0, 1.5, 3.5);
+	prisma(24.5, 2.5, 3.0, front.GLindex, salones.GLindex, p_arq.GLindex, p_arq.GLindex, techo.GLindex, 0, 3, 1, 3, 1, 1, 1, 1, 1, 1, 1, 0, 0);
+	glPopMatrix();
+}
+
+void Principal()
+{
+	//Plantas
+	prisma(35, 25, 10, front.GLindex, salones.GLindex, p_arq.GLindex, p_arq.GLindex, techo.GLindex, 0, 4, 3, 8, 3, 1, 1, 1, 1, 1, 1, 0, 0);
+	glTranslatef(5, -15, 2.5);
+	prisma(45, 5, 15, bib.GLindex, salones.GLindex, p_arq.GLindex, bib.GLindex, techo.GLindex, 0, 9, 1, 9, 1, 1, 1, 6, 3, 1, 1, 0, 0);
+	glTranslatef(0.0, -6.75, 0.0);
+	prisma(45, 8.5, 15, bar_princ.GLindex, salones.GLindex, p_arq.GLindex, p_arq.GLindex, 0, 0, 9, 1, 9, 2, 1, 1, 1, 1, 0, 0, 0, 0);
+}
+
+void puerta_PrincipalA()
+{
+
+	glPushMatrix();
+	glTranslatef(0.0, 1.0, -2.6);
+	glColor3f(1.0, 1.0, 0.0);
+	//Tubos verticales
+	for (int i = 0; i<40; i++)
+	{
+		glPushMatrix();
+		glTranslatef(i / 8.0, 0.0, 0.0);
+		prisma(0.05, 2, 0.05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		glPopMatrix();
+	}
+	glPopMatrix();
+	//Tubo transverso
+	glPushMatrix();
+	glTranslatef(2.45, 1.67, -2.6);
+	prisma(5.1, 0.05, 0.05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glPopMatrix();
+	glColor3f(1.0, 1.0, 1.0);
+
+	//Marquesina
+	glPushMatrix();
+	glTranslatef(5.45, 2.5, -6.0);
+	prisma(12.0, 1.0, 7.7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glPopMatrix();
+
+	//Ventanas
+	glPushMatrix();
+	glTranslatef(5.3, 4.3, -3.5);
+	prisma(11.0, 3.0, 2.0, bib.GLindex, bib.GLindex, p_arq.GLindex, p_arq.GLindex, techo.GLindex, 0, 6, 1, 6, 1, 1, 1, 1, 1, 1, 1, 0, 0);
+	glPopMatrix();
+
+	//Piso
+	glBegin(GL_QUADS);
+	glVertex3f(0.0, 0.0, 0.0);
+	glVertex3f(10.0, 0.0, 0.0);
+	glVertex3f(10.0, 0.0, -10.0);
+	glVertex3f(0.0, 0.0, -10.0);
+	glEnd();
+
+	//Sala de exámenes profesionales 
+	glPushMatrix();
+	glTranslatef(9.0, 1.0, -5.0);
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, -1.0);
+	prisma(4, 2, 3.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glPopMatrix();
+
+	glTranslatef(8.0, 0.0, -1.5);
+	//Salas aledañas
+	glPushMatrix();
+	glTranslatef(0.55, 0.0, 0.5);
+	prisma(13.1, 2, 3.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glPopMatrix();
+
+	//Piso primer nivel
+	glPushMatrix();
+	glTranslatef(0.8, 1.5, 0.0);
+	prisma(12.8, 1.0, 5.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+	//Direccion y otros salones
+	glPushMatrix();
+	glTranslatef(-1.8, 1.9, 0.85);
+	prisma(15.8, 2.9, 3.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//Escalera por biblioteca
+	glPushMatrix();
+	glTranslatef(11.0, -1, -1.0);
+	glRotatef(180, 0.0, 1.0, 0.0);
+	glScalef(0.7, 1.0, 0.5);
+	pisosPrincipal();
+	glPopMatrix();
+	glPopMatrix();
+
+	//Edificio E
+	glPushMatrix();
+	glTranslatef(25.5, 3.5, -2.0);
+	glColor3f(1.0, 0.0, 0.0);
+	prisma(28, 7.0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glColor3f(1.0, 1.0, 1.0);
+	glPopMatrix();
+
+	//Biblioteca Dovalí
+	glPushMatrix();
+	glTranslatef(36.0, 2.8, -7.5);
+	//glColor3f(0.0,0.0,1.0);
+	prisma(7, 5.6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	//glColor3f(1.0,1.0,1.0);
+	glPopMatrix();
+
+	//Edificio D
+	glPushMatrix();
+	glTranslatef(28.0, 2.8, -20.0);
+	glColor3f(0.0, 0.0, 1.0);
+	prisma(7.5, 5.6, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	glColor3f(1.0, 1.0, 1.0);
+	glPopMatrix();
+
+
+	//Plantas de salones edificio A
+	glPushMatrix();
+	glTranslatef(11.75, 6.0, -9.5);
+	for (int i = 0; i<3; i++)
+	{
+		glPushMatrix();
+		glTranslatef(0.0, i*2.75, 0.0);
+		if (i == 0) plantaPrincipal(0);
+		else plantaPrincipal(1);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslatef(14.3, i*2.8, -1.5);
+		if (i == 0)
+		{
+			glPushMatrix();
+			glTranslatef(0.0, 0.0, 2.5);
+			prisma(4.1, 0.5, 2.0, p_arq.GLindex, p_arq.GLindex, p_arq.GLindex, p_arq.GLindex, p_gral.GLindex, 0, 1, 1, 1, 1, 1, 1, 1, 1, 9, 4, 0, 0);
+			glPopMatrix();
+
+			glPushMatrix();
+			glTranslatef(0.0, -3.2, 3.0);
+
+			glPushMatrix();
+			glTranslatef(0.0, 0.0, -0.75);
+			prisma(4.1, 0.5, 2.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			glPopMatrix();
+
+			glTranslatef(4.6, 0.0, 1.5);
+
+			glPushMatrix();
+			glTranslatef(0.0, 0.0, -0.5);
+			prisma(5.1, 0.5, 6.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			glPopMatrix();
+
+			glTranslatef(-0.3, 1.5, 0.75);
+			prisma(4.5, 2.8, 3.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			glPopMatrix();
+		}
+		else
+		{
+			glTranslatef(0.0, 0.0, 3.0);
+			prisma(4.1, 0.5, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		}
+		glPopMatrix();
+
+		//Pared de escalera por biblioteca
+		glPushMatrix();
+		glTranslatef(14.3, i*3., 5.0);
+		prisma(4.1, 2.9, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		glPopMatrix();
+
+		//Balcón
+		glPushMatrix();
+
+		glPopMatrix();
+
+		//Planta de ala más externa
+		glPushMatrix();
+		glTranslatef(20.0, i*2.8, 0.0);
+		glScalef(0.3, 1.0, 1.0);
+		if (i == 0) plantaPrincipal(0);
+		else plantaPrincipal(1);
+		glPopMatrix();
+	}
+	glPopMatrix();
+}
+
 
 void DGOSE()
 {
@@ -1772,6 +2494,13 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glTranslatef(70.0, 5.3, -100.0);
 	glScalef(0.7, 1, 0.7);
 	DGOSE();
+	glPopMatrix();
+
+
+	glPushMatrix(); //Principal
+	glRotatef(90, 0.0, 1.0, 0.0);
+	glTranslatef(-100, 0, 10);
+	puerta_PrincipalA();
 	glPopMatrix();
 
 	//Arqui y demás
